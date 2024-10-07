@@ -4,6 +4,6 @@ using UnityEngine;
 
 public interface Iweapon
 {
-    void Attack();
-    void DropWeapon();
+    void Shoot();
+    void Aim();
 }

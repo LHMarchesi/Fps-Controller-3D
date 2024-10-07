@@ -2,14 +2,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Gun : MonoBehaviour, Iweapon
+public class Gun : MonoBehaviour, Iweapon, Ipickuppeable
 {
     [SerializeField] private int TotalAmmo;
     [SerializeField] private GameObject bulletPrefab;
     [SerializeField] Transform bulletPosition;
 
     private Stack<GameObject> bullets = new Stack<GameObject>();
-    PlayerController player;
+    private PlayerController player;
 
     private void Start()
     {
@@ -20,7 +20,8 @@ public class Gun : MonoBehaviour, Iweapon
             obj.SetActive(false);
         }
     }
-    public void Attack()
+
+    public void Shoot()
     {
         if (bullets.Count > 0)
         {
@@ -31,21 +32,32 @@ public class Gun : MonoBehaviour, Iweapon
         }
     }
 
-    public void DropWeapon()
+    public void Aim()
     {
-        this.transform.SetParent(null);
-        player.currentWeapon = null;
+        throw new System.NotImplementedException();
     }
 
-    void OnTriggerEnter(Collider other)
+    public void PickUp(PlayerController player)
     {
-        if (other.CompareTag("Player"))
+        this.player = player;
+
+        this.transform.SetParent(player.playerHand, true);
+        this.transform.position = player.playerHand.position;
+        this.transform.rotation = Quaternion.identity;
+
+        player.ChangeWeapon(this);
+        player.currentItem = this;
+    }
+
+    public void Drop()
+    {
+        if (player != null)
         {
-            player = other.GetComponent<PlayerController>();
-            this.transform.SetParent(player.playerHand.transform, true);
-            this.transform.position = player.playerHand.transform.position;
-            this.transform.rotation = Quaternion.identity;
-            player.ChangeWeapon(this);
+            this.transform.SetParent(null);
+            player.currentWeapon = null;
+            player.currentItem = null;
+
+            player = null; 
         }
     }
 }

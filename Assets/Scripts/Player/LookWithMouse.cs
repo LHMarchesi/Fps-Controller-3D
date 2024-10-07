@@ -28,34 +28,11 @@ public class LookWithMouse : MonoBehaviour
     {
         bool unlockPressed, lockPressed;
 
-#if ENABLE_INPUT_SYSTEM
-        float mouseX = 0, mouseY = 0;
-
-        if (Mouse.current != null)
-        {
-            var delta = Mouse.current.delta.ReadValue() / 15.0f;
-            mouseX += delta.x;
-            mouseY += delta.y;
-        }
-        if (Gamepad.current != null)
-        {
-            var value = Gamepad.current.rightStick.ReadValue() * 2;
-            mouseX += value.x;
-            mouseY += value.y;
-        }
-
-        unlockPressed = Keyboard.current.escapeKey.wasPressedThisFrame;
-        lockPressed = Mouse.current.leftButton.wasPressedThisFrame || Mouse.current.rightButton.wasPressedThisFrame;
-
-        mouseX *= mouseSensitivity * k_MouseSensitivityMultiplier;
-        mouseY *= mouseSensitivity * k_MouseSensitivityMultiplier;
-#else
         float mouseX = Input.GetAxis("Mouse X") * mouseSensitivity * k_MouseSensitivityMultiplier;
         float mouseY = Input.GetAxis("Mouse Y") * mouseSensitivity * k_MouseSensitivityMultiplier;
         
         unlockPressed = Input.GetKeyDown(KeyCode.Escape);
         lockPressed = Input.GetMouseButtonDown(0) || Input.GetMouseButtonDown(1);
-#endif
 
         if (unlockPressed)
         {
