@@ -29,6 +29,7 @@ public class PlayerController : MonoBehaviour
     {
         currentWeapon = null;
         currentItem = null;
+        controller = GetComponent<CharacterController>();
     }
 
     // Update is called once per frame
