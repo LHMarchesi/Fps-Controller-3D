@@ -464,7 +464,7 @@ GameObject:
   - component: {fileID: 561501001}
   - component: {fileID: 561501000}
   m_Layer: 0
-  m_Name: CylinderPlatform1
+  m_Name: Platform1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -760,7 +760,7 @@ GameObject:
   - component: {fileID: 838721673}
   - component: {fileID: 838721672}
   m_Layer: 7
-  m_Name: Cube (1)
+  m_Name: Door
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1123,7 +1123,7 @@ GameObject:
   - component: {fileID: 1188439147}
   - component: {fileID: 1188439151}
   m_Layer: 0
-  m_Name: CylinderPlatform0
+  m_Name: Platform0
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1491,7 +1491,7 @@ GameObject:
   - component: {fileID: 1600519119}
   - component: {fileID: 1600519118}
   m_Layer: 0
-  m_Name: CylinderPlatform2
+  m_Name: Platform2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1755,7 +1755,7 @@ GameObject:
   - component: {fileID: 1631756984}
   - component: {fileID: 1631756983}
   m_Layer: 0
-  m_Name: Puzzle0handler
+  m_Name: Puzzlehandler0
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
