@@ -34,7 +34,6 @@ public class Gun : MonoBehaviour, Iweapon, Ipickuppeable
 
     public void Aim()
     {
-        throw new System.NotImplementedException();
     }
 
     public void PickUp(PlayerController player)
