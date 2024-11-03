@@ -106,10 +106,16 @@ public class PlayerController : MonoBehaviour
         if (Physics.Raycast(ray, out hit, pickUpRange))
         {
             Ipickuppeable pickableItem = hit.transform.GetComponent<Ipickuppeable>();
-            if (pickableItem != null)
+            if (pickableItem != null && currentItem == null)
             {
                 pickableItem.PickUp(this);
                 currentItem = pickableItem;
+            }
+
+            IInteractable interactableObj = hit.transform.GetComponent<IInteractable>();
+            if (interactableObj != null)
+            {
+                interactableObj.Interact();
             }
         }
     }
