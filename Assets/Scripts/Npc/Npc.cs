@@ -2,10 +2,10 @@ using UnityEngine;
 
 public class Npc : MonoBehaviour, IInteractable
 {
-    BasicInkExample story;
+    BubbleChatManager story;
     private void Awake()
     {
-        story = GetComponentInChildren<BasicInkExample>();
+        story = GetComponentInChildren<BubbleChatManager>();
     }
 
     public void Interact()

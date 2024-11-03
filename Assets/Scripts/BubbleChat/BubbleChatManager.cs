@@ -4,7 +4,7 @@ using UnityEngine;
 using TMPro;
 
 // This is a super bare bones example of how to play and display a ink story in Unity.
-public class BasicInkExample : MonoBehaviour {
+public class BubbleChatManager : MonoBehaviour {
     public static event Action<Story> OnCreateStory;
 	
     public void LoadChat() {
