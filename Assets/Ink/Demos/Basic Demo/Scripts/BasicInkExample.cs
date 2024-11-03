@@ -1,14 +1,13 @@
 ﻿using System;
 using Ink.Runtime;
 using UnityEngine;
-using UnityEngine.UI;
 using TMPro;
 
 // This is a super bare bones example of how to play and display a ink story in Unity.
 public class BasicInkExample : MonoBehaviour {
     public static event Action<Story> OnCreateStory;
 	
-    void Awake () {
+    public void LoadChat() {
 		// Remove the default message
 		RemoveChildren();
 		StartStory();
@@ -54,12 +53,7 @@ public class BasicInkExample : MonoBehaviour {
 		}
 		// If we've read all the content and there's no choices, the story is finished!
 		else {
-			GameObject choice = CreateChoiceView("End of story.\nRestart?");
-            Option option = choice.GetComponent<Option>();
-            if (option != null)
-            {
-                option.onClick.AddListener(StartStory); 
-            }
+            RemoveChildren();
         }
 	}
 
@@ -71,43 +65,43 @@ public class BasicInkExample : MonoBehaviour {
 
 	// Creates a textbox showing the the line of text
 	void CreateContentView(string text) {
-		GameObject prefab = Instantiate(textPrefab);
-		prefab.transform.SetParent(background.transform, false);
-		TextMeshPro storyText = prefab.GetComponentInChildren<TextMeshPro>();
+		TextMeshPro storyText = Instantiate(textPrefab);
+        storyText.gameObject.transform.SetParent(textContainer.transform, false);
 
 		storyText.text = text;
-		storyText.transform.SetParent(background.transform, false);
-
-		RectTransform rectTransform = storyText.GetComponent<RectTransform>();
-		rectTransform.localPosition = background.transform.position;
     }
 
     // Creates a button showing the choice text
     GameObject CreateChoiceView (string text) {
         // Creates the button from a prefab
-        GameObject choice = Instantiate (optionPrefab) as GameObject;
-        choice.transform.SetParent (background.transform, false);
+        GameObject choice = Instantiate (optionPrefab);
+        choice.transform.SetParent (choiceContainer.transform, false);
 
         // Gets the text from the button prefab
         TextMeshPro choiceText = choice.GetComponentInChildren<TextMeshPro> ();
 		choiceText.text = text;
 
-        // Ajusta RectTransform para asegurar alineación (opcional)
-        RectTransform rectTransform = choice.GetComponent<RectTransform>();
-		rectTransform.localPosition = background.transform.position;
-
         return choice;
 	}
 
-	// Destroys all the children of this gameobject (all the UI)
-	void RemoveChildren () {
-		int childCount = background.transform.childCount;
-		for (int i = childCount - 1; i >= 0; --i) {
-			Destroy (background.transform.GetChild (i).gameObject);
-		}
-	}
+    // Destroys all the children of this gameobject (all the UI)
+    void RemoveChildren()
+    {
+        // Eliminar todos los hijos de textContainer
+        int textChildCount = textContainer.transform.childCount;
+        for (int i = textChildCount - 1; i >= 0; --i)
+        {
+            Destroy(textContainer.transform.GetChild(i).gameObject);
+        }
 
-	[SerializeField]
+        // Eliminar todos los hijos de choiceContainer
+        int choiceChildCount = choiceContainer.transform.childCount;
+        for (int i = choiceChildCount - 1; i >= 0; --i)
+        {
+            Destroy(choiceContainer.transform.GetChild(i).gameObject);
+        }
+    }
+    [SerializeField]
 	private TextAsset inkJSONAsset = null;
 	public Story story;
 
@@ -116,7 +110,13 @@ public class BasicInkExample : MonoBehaviour {
 
 	// UI Prefabs
 	[SerializeField]
-	private GameObject textPrefab = null;
+	private TextMeshPro textPrefab = null;
 	[SerializeField]
 	private GameObject optionPrefab = null;
+
+    [SerializeField]
+    private GameObject choiceContainer = null;
+
+    [SerializeField]
+    private GameObject textContainer = null; 
 }
