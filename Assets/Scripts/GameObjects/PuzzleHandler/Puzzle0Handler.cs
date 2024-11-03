@@ -7,11 +7,7 @@ public class Puzzle0Handler : MonoBehaviour
     [SerializeField] private ItemPlatform[] itemPlatforms;
     [SerializeField] private GameObject door;
     private bool allColliding;
-    void Start()
-    {
-        
-    }
-
+   
     // Update is called once per frame
     void Update()
     {
@@ -30,7 +26,8 @@ public class Puzzle0Handler : MonoBehaviour
 
         if (allColliding)
         {
-            door.SetActive(false); //anim
+            Animator doorAnimator = door.GetComponent<Animator>();
+            doorAnimator.SetBool("OpenDoor", true);
         }
 
     }
