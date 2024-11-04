@@ -26,9 +26,10 @@ public class BubbleChatManager : MonoBehaviour {
 	void RefreshView () {
 		// Remove all the UI on screen
 		RemoveChildren ();
-		
-		// Read all the content until we can't continue any more
-		while (story.canContinue) {
+        background.SetActive(true);
+
+        // Read all the content until we can't continue any more
+        while (story.canContinue) {
 			// Continue gets the next line of the story
 			string text = story.Continue ();
 			// This removes any white space from the text.
@@ -54,6 +55,7 @@ public class BubbleChatManager : MonoBehaviour {
 		// If we've read all the content and there's no choices, the story is finished!
 		else {
             RemoveChildren();
+			background.SetActive(false);
         }
 	}
 

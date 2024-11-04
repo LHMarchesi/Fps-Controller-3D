@@ -1,19 +1,22 @@
-- I looked at Monsieur Fogg 
-*   ... and I could contain myself no longer.
-    'What is the purpose of our journey, Monsieur?'
-    'A wager,' he replied.
-    * *     'A wager!'[] I returned.
-            He nodded. 
-            * * *   'But surely that is foolishness!'
-            * * *  'A most serious matter then!'
-            - - -   He nodded again.
-            * * *   'But can we win?'
-                    'That is what we will endeavour to find out,' he answered.
-            * * *   'A modest wager, I trust?'
-                    'Twenty thousand pounds,' he replied, quite flatly.
-            * * *   I asked nothing further of him then[.], and after a final, polite cough, he offered nothing more to me. <>
-    * *     'Ah[.'],' I replied, uncertain what I thought.
-    - -     After that, <>
-*   ... but I said nothing[] and <>
-- we passed the day in silence.
+- Saera. Un nombre que porta luz y oscuridad. Perdida ante los luceros del cielo, el cual, tú todavía no puedes ver.
+*   ¿Cómo sabe cuál es mi nombre?.
+   - - Eso no importa. Estas tierras se hallan prohibidas. Entra aquí y lo único que te quedará será el recuerdo de aquella que una vez fuiste. Te extrañarás.
+    * *     Usted no entiende. Tengo que-.
+      - - -      No me lo digas. Conozco las intenciones de aquellos que se atreven a ingresar. Ahora, jugaremos a las adivinanzas.
+            * * *   Pero no hay-
+            - - - -   No tienes ningún tipo de valor. Me dejas interrumpirte. No estás lista, pero ese no es mi problema. Estás dispuesta a seguir a pesar de mis advertencias. Ahora escúchame con atención: siempre va por la tierra sin ensuciarse. ¿Qué es?.
+            * * * *  La sombra.
+           
+            - - - - -    Vaya. Deberías seguir los sonidos a tu próximo destino. Ten cuidado, hay muchas almas como la mía. Aunque ninguna es mejor. Vete ahora. Todavía tienes tiempo.
+            * * * * *  Dejar de hablar
+                
+            * * * *  Un pájaro. 
+            - - - - -  Eres inteligente, no lo suficiente. Te veo en el Más Allá, querida.
+            * * * * *  Dejar de hablar
+            
+            * * * *   Una araña.
+            - - - - -  Impresionante. Jamás se me habría ocurrido pensar en semejante aberración. Ojalá estuviera bien tu respuesta. Espero que no sea tan dolorosa tu partida.
+            * * * * *  Dejar de hablar
+            
+          
 - -> END
