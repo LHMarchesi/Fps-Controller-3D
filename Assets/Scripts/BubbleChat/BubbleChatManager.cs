@@ -17,13 +17,26 @@ public class BubbleChatManager : MonoBehaviour {
 	void StartStory () {
 		story = new Story (inkJSONAsset.text);
         if(OnCreateStory != null) OnCreateStory(story);
-		RefreshView();
+        story.BindExternalFunction("WrongAsnswer", () => WrongAsnswerHandleer());
+        story.BindExternalFunction("GoodAsnswer", () => GoodAsnswerHandleer());
+        RefreshView();
 	}
-	
-	// This is the main function called every time the story changes. It does a few things:
-	// Destroys all the old content and choices.
-	// Continues over all the lines of text, then displays all the choices. If there are no choices, the story is finished!
-	void RefreshView () {
+
+    public void WrongAsnswerHandleer()
+    {
+        PlayerHealth playerHealth = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerHealth>();
+        playerHealth.GetDamage();
+    }
+
+    public void GoodAsnswerHandleer()
+    {
+        Debug.Log("GoodAsnswer");
+    }
+
+    // This is the main function called every time the story changes. It does a few things:
+    // Destroys all the old content and choices.
+    // Continues over all the lines of text, then displays all the choices. If there are no choices, the story is finished!
+    void RefreshView () {
 		// Remove all the UI on screen
 		RemoveChildren ();
         background.SetActive(true);
