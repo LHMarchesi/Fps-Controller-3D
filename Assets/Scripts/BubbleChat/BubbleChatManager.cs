@@ -13,24 +13,25 @@ public class BubbleChatManager : MonoBehaviour {
 		StartStory();
 	}
 
-	// Creates a new Story object with the compiled story which we can then play!
-	void StartStory () {
-		story = new Story (inkJSONAsset.text);
-        if(OnCreateStory != null) OnCreateStory(story);
-        story.BindExternalFunction("WrongAsnswer", () => WrongAsnswerHandleer());
-        story.BindExternalFunction("GoodAsnswer", () => GoodAsnswerHandleer());
-        RefreshView();
-	}
+    void StartStory()
+    {
+        story = new Story(inkJSONAsset.text);
+        story.BindExternalFunction("WrongAnswer", () => WrongAnswerHandler());
+        story.BindExternalFunction("GoodAnswer", () => GoodAnswerHandler());
 
-    public void WrongAsnswerHandleer()
+        if (OnCreateStory != null) OnCreateStory(story);
+        RefreshView();
+    }
+
+    public void WrongAnswerHandler()
     {
         PlayerHealth playerHealth = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerHealth>();
         playerHealth.GetDamage();
     }
 
-    public void GoodAsnswerHandleer()
+    public void GoodAnswerHandler()
     {
-        Debug.Log("GoodAsnswer");
+        Debug.Log("GoodAnswer");
     }
 
     // This is the main function called every time the story changes. It does a few things:

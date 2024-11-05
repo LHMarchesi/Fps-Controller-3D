@@ -1,5 +1,5 @@
-EXTERNAL WrongAsnswer()
-EXTERNAL GoodAsnswer()
+EXTERNAL WrongAnswer()
+EXTERNAL GoodAnswer()
 
 - Saera. Un nombre que porta luz y oscuridad. Perdida ante los luceros del cielo, el cual, tú todavía no puedes ver.
 *   ¿Cómo sabe cuál es mi nombre?.
@@ -11,19 +11,19 @@ EXTERNAL GoodAsnswer()
             * * * *  La sombra.
            
             - - - - -    Vaya. Deberías seguir los sonidos a tu próximo destino. Ten cuidado, hay muchas almas como la mía. Aunque ninguna es mejor. Vete ahora. Todavía tienes tiempo.
-             {GoodAsnswer()}
+             {GoodAnswer()}
             
             * * * * *  Dejar de hablar
                 
             * * * *  Un pájaro. 
             - - - - -  Eres inteligente, no lo suficiente. Te veo en el Más Allá, querida.
-            {WrongAsnswer()}
+            {GoodAnswer()}
             
             * * * * *  Dejar de hablar
             
             * * * *   Una araña.
             - - - - -  Impresionante. Jamás se me habría ocurrido pensar en semejante aberración. Ojalá estuviera bien tu respuesta. Espero que no sea tan dolorosa tu partida.
-            {WrongAsnswer()}
+            {WrongAnswer()}
             
             * * * * *  Dejar de hablar
             
