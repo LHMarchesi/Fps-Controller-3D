@@ -13,22 +13,37 @@ public class BubbleChatManager : MonoBehaviour {
 		StartStory();
 	}
 
-	// Creates a new Story object with the compiled story which we can then play!
-	void StartStory () {
-		story = new Story (inkJSONAsset.text);
-        if(OnCreateStory != null) OnCreateStory(story);
-		RefreshView();
-	}
-	
-	// This is the main function called every time the story changes. It does a few things:
-	// Destroys all the old content and choices.
-	// Continues over all the lines of text, then displays all the choices. If there are no choices, the story is finished!
-	void RefreshView () {
+    void StartStory()
+    {
+        story = new Story(inkJSONAsset.text);
+        story.BindExternalFunction("WrongAnswer", () => WrongAnswerHandler());
+        story.BindExternalFunction("GoodAnswer", () => GoodAnswerHandler());
+
+        if (OnCreateStory != null) OnCreateStory(story);
+        RefreshView();
+    }
+
+    public void WrongAnswerHandler()
+    {
+        PlayerHealth playerHealth = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerHealth>();
+        playerHealth.GetDamage();
+    }
+
+    public void GoodAnswerHandler()
+    {
+        Debug.Log("GoodAnswer");
+    }
+
+    // This is the main function called every time the story changes. It does a few things:
+    // Destroys all the old content and choices.
+    // Continues over all the lines of text, then displays all the choices. If there are no choices, the story is finished!
+    void RefreshView () {
 		// Remove all the UI on screen
 		RemoveChildren ();
-		
-		// Read all the content until we can't continue any more
-		while (story.canContinue) {
+        background.SetActive(true);
+
+        // Read all the content until we can't continue any more
+        while (story.canContinue) {
 			// Continue gets the next line of the story
 			string text = story.Continue ();
 			// This removes any white space from the text.
@@ -54,6 +69,7 @@ public class BubbleChatManager : MonoBehaviour {
 		// If we've read all the content and there's no choices, the story is finished!
 		else {
             RemoveChildren();
+			background.SetActive(false);
         }
 	}
 

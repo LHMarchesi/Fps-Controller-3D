@@ -755,11 +755,11 @@ PlayerSettings:
   apiCompatibilityLevel: 6
   activeInputHandler: 0
   windowsGamepadBackendHint: 0
-  cloudProjectId: 0caa96e4-1efb-40bc-a8bf-f2eb9b965b9e
+  cloudProjectId: ba6c69ca-5591-4c83-be93-10d34af79f2d
   framebufferDepthMemorylessMode: 0
   qualitySettingsNames: []
-  projectName: My project (1) 2024-10-01_15-25-59
-  organizationId: o0zeke0o
+  projectName: DesingPatternsGame
+  organizationId: lautimarchesi6
   cloudEnabled: 0
   legacyClampBlendShapeWeights: 0
   hmiLoadingImage: {fileID: 0}
