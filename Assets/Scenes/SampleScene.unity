@@ -815,6 +815,14 @@ PrefabInstance:
       value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 6033283493644253777, guid: 2c18b114c1ee4944795b6a45492a9eb1, type: 3}
+      propertyPath: chaseRange
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 6033283493644253777, guid: 2c18b114c1ee4944795b6a45492a9eb1, type: 3}
+      propertyPath: attackRange
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 6033283493644253777, guid: 2c18b114c1ee4944795b6a45492a9eb1, type: 3}
       propertyPath: waypoints.Array.size
       value: 30
       objectReference: {fileID: 0}
