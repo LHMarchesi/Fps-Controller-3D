@@ -93,4 +93,13 @@ public class AiEnemy : MonoBehaviour
             waypointsIndex = 0;
         }
     }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (collision.collider.CompareTag("Player"))
+        {
+            PlayerHealth playerHealth = collision.gameObject.GetComponent<PlayerHealth>();
+            playerHealth.GetDamage();
+        }
+    }
 }

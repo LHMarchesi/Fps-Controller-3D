@@ -17,7 +17,7 @@ EXTERNAL GoodAnswer()
                 
             * * * *  Un pájaro. 
             - - - - -  Eres inteligente, no lo suficiente. Te veo en el Más Allá, querida.
-            {GoodAnswer()}
+             {WrongAnswer()}
             
             * * * * *  Dejar de hablar
             
