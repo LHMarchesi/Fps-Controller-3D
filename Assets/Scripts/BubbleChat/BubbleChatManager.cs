@@ -2,16 +2,38 @@
 using Ink.Runtime;
 using UnityEngine;
 using TMPro;
+using UnityEngine.UI;
 
 // This is a super bare bones example of how to play and display a ink story in Unity.
-public class BubbleChatManager : MonoBehaviour {
+public class BubbleChatManager : MonoBehaviour
+{
     public static event Action<Story> OnCreateStory;
-	
-    public void LoadChat() {
-		// Remove the default message
-		RemoveChildren();
-		StartStory();
-	}
+
+    TextAsset inkJSONAsset = null;
+
+    public Story story;
+
+    [SerializeField]
+    private GameObject background = null;
+
+    // UI Prefabs
+    [SerializeField]
+    private TextMeshProUGUI textPrefab = null;
+    [SerializeField]
+    private GameObject optionPrefab = null;
+
+    [SerializeField]
+    private GameObject choiceContainer = null;
+
+    [SerializeField]
+    private GameObject textContainer = null;
+
+    public void LoadChat()
+    {
+        // Remove the default message
+        RemoveChildren();
+        StartStory();
+    }
 
     void StartStory()
     {
@@ -37,68 +59,75 @@ public class BubbleChatManager : MonoBehaviour {
     // This is the main function called every time the story changes. It does a few things:
     // Destroys all the old content and choices.
     // Continues over all the lines of text, then displays all the choices. If there are no choices, the story is finished!
-    void RefreshView () {
-		// Remove all the UI on screen
-		RemoveChildren ();
+    void RefreshView()
+    {
+        // Remove all the UI on screen
+        RemoveChildren();
         background.SetActive(true);
 
         // Read all the content until we can't continue any more
-        while (story.canContinue) {
-			// Continue gets the next line of the story
-			string text = story.Continue ();
-			// This removes any white space from the text.
-			text = text.Trim();
-			// Display the text on screen!
-			CreateContentView(text);
-		}
+        while (story.canContinue)
+        {
+            // Continue gets the next line of the story
+            string text = story.Continue();
+            // This removes any white space from the text.
+            text = text.Trim();
+            // Display the text on screen!
+            CreateContentView(text);
+        }
 
-		// Display all the choices, if there are any!
-		if(story.currentChoices.Count > 0) {
-			for (int i = 0; i < story.currentChoices.Count; i++) {
-				Choice choice = story.currentChoices [i];
-				GameObject choiceButton = CreateChoiceView (choice.text.Trim ());
+        // Display all the choices, if there are any!
+        if (story.currentChoices.Count > 0)
+        {
+            for (int i = 0; i < story.currentChoices.Count; i++)
+            {
+                Choice choice = story.currentChoices[i];
+                GameObject choiceButton = CreateChoiceView(choice.text.Trim());
 
                 Option option = choiceButton.GetComponent<Option>();
                 if (option != null)
                 {
-                    // Tell the button what to do when we press it
-                    option.onClick.AddListener(() => OnClickChoiceButton(choice));
+                    option.OnClick += () => OnClickChoiceButton(choice);
                 }
             }
-		}
-		// If we've read all the content and there's no choices, the story is finished!
-		else {
-            RemoveChildren();
-			background.SetActive(false);
         }
-	}
+        else // If we've read all the content and there's no choices, the story is finished!
+        {
+            RemoveChildren();
+            background.SetActive(false);
+        }
 
-	// When we click the choice button, tell the story to choose that choice!
-	void OnClickChoiceButton (Choice choice) {
-		story.ChooseChoiceIndex (choice.index);
-		RefreshView();
-	}
+    }
 
-	// Creates a textbox showing the the line of text
-	void CreateContentView(string text) {
-		TextMeshPro storyText = Instantiate(textPrefab);
+    // When we click the choice button, tell the story to choose that choice!
+    void OnClickChoiceButton(Choice choice)
+    {
+        story.ChooseChoiceIndex(choice.index);
+        RefreshView();
+    }
+
+    // Creates a textbox showing the the line of text
+    void CreateContentView(string text)
+    {
+        TextMeshProUGUI storyText = Instantiate(textPrefab);
         storyText.gameObject.transform.SetParent(textContainer.transform, false);
 
-		storyText.text = text;
+        storyText.text = text;
     }
 
     // Creates a button showing the choice text
-    GameObject CreateChoiceView (string text) {
+    GameObject CreateChoiceView(string text)
+    {
         // Creates the button from a prefab
-        GameObject choice = Instantiate (optionPrefab);
-        choice.transform.SetParent (choiceContainer.transform, false);
+        GameObject choice = Instantiate(optionPrefab);
+        choice.transform.SetParent(choiceContainer.transform, false);
 
         // Gets the text from the button prefab
-        TextMeshPro choiceText = choice.GetComponentInChildren<TextMeshPro> ();
-		choiceText.text = text;
+        TextMeshProUGUI choiceText = choice.GetComponentInChildren<TextMeshProUGUI>();
+        choiceText.text = text;
 
         return choice;
-	}
+    }
 
     // Destroys all the children of this gameobject (all the UI)
     void RemoveChildren()
@@ -117,22 +146,16 @@ public class BubbleChatManager : MonoBehaviour {
             Destroy(choiceContainer.transform.GetChild(i).gameObject);
         }
     }
-    [SerializeField]
-	private TextAsset inkJSONAsset = null;
-	public Story story;
 
-	[SerializeField]
-	private GameObject background = null;
+    public void SetJsonFile(TextAsset inkJSONAsset)
+    {
+        this.inkJSONAsset = inkJSONAsset;
+    }
 
-	// UI Prefabs
-	[SerializeField]
-	private TextMeshPro textPrefab = null;
-	[SerializeField]
-	private GameObject optionPrefab = null;
+    public void FinishStory()
+    {
+        RemoveChildren();
+        background.SetActive(false);
+    }
 
-    [SerializeField]
-    private GameObject choiceContainer = null;
-
-    [SerializeField]
-    private GameObject textContainer = null; 
 }

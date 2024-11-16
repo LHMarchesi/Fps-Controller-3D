@@ -1,12 +1,19 @@
+using System;
 using UnityEngine;
-using UnityEngine.Events;
+using UnityEngine.UI;
 
-public class Option : MonoBehaviour, IInteractable
+public class Option : MonoBehaviour
 {
-    public UnityEvent onClick; 
-
-    public void Interact()
+    public event Action OnClick;
+    Button buttonComponent;
+    private void Start()
     {
-        onClick?.Invoke();
+        buttonComponent = GetComponentInChildren<Button>();
+        buttonComponent.onClick.AddListener(() => Press());
+        
+    }
+    public void Press()
+    {
+        OnClick?.Invoke();  // Invoca el evento cuando el botón es presionado
     }
 }

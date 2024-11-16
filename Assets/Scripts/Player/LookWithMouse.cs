@@ -1,6 +1,5 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems; // Necesario para comprobar si el cursor está sobre la UI
 
 public class LookWithMouse : MonoBehaviour
 {
@@ -26,29 +25,41 @@ public class LookWithMouse : MonoBehaviour
 
         float mouseX = Input.GetAxis("Mouse X") * mouseSensitivity * k_MouseSensitivityMultiplier;
         float mouseY = Input.GetAxis("Mouse Y") * mouseSensitivity * k_MouseSensitivityMultiplier;
-        
+
         unlockPressed = Input.GetKeyDown(KeyCode.Escape);
         lockPressed = Input.GetMouseButtonDown(0) || Input.GetMouseButtonDown(1);
 
-        if (unlockPressed)
+        // Si el cursor está sobre la UI, no bloquearlo
+        if (EventSystem.current.IsPointerOverGameObject()) // Comprobar si el cursor está sobre un objeto de la UI
         {
             Cursor.lockState = CursorLockMode.None;
             Cursor.visible = true;
         }
-        if (lockPressed)
+        else if (!EventSystem.current.IsPointerOverGameObject() && !unlockPressed)
         {
-            Cursor.lockState = CursorLockMode.Locked;
-            Cursor.visible = false;
+            // Solo bloquear el cursor cuando no está sobre la UI
+            if (lockPressed)
+            {
+                Cursor.lockState = CursorLockMode.Locked;
+                Cursor.visible = false;
+            }
+
+            if (Cursor.lockState == CursorLockMode.Locked)
+            {
+                xRotation -= mouseY;
+                xRotation = Mathf.Clamp(xRotation, -90f, 90f);
+
+                transform.localRotation = Quaternion.Euler(xRotation, 0f, 0f);
+
+                playerBody.Rotate(Vector3.up * mouseX);
+            }
         }
 
-        if (Cursor.lockState == CursorLockMode.Locked)
+        // Manejando desbloqueo con Escape
+        if (unlockPressed)
         {
-            xRotation -= mouseY;
-            xRotation = Mathf.Clamp(xRotation, -90f, 90f);
-
-            transform.localRotation = Quaternion.Euler(xRotation, 0f, 0f);
-
-            playerBody.Rotate(Vector3.up * mouseX);
+            Cursor.lockState = CursorLockMode.None;
+            Cursor.visible = true;
         }
     }
 }
