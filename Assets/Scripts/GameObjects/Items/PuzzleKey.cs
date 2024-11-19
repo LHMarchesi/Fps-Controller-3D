@@ -7,6 +7,10 @@ public class PuzzleKey : MonoBehaviour, Ipickuppeable
     private PlayerController playerController;
     private Rigidbody rb;
 
+    public string Name => throw new System.NotImplementedException();
+
+    public Sprite ItemIcon => throw new System.NotImplementedException();
+
     private void Awake()
     {
         playerController = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>();

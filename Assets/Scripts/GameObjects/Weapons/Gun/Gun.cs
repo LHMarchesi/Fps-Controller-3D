@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Gun : MonoBehaviour, Iweapon, Ipickuppeable
+public class Gun : MonoBehaviour, Iweapon
 {
     [SerializeField] private int TotalAmmo;
     [SerializeField] private GameObject bulletPrefab;
@@ -44,8 +44,8 @@ public class Gun : MonoBehaviour, Iweapon, Ipickuppeable
         this.transform.position = player.playerHand.position;
         this.transform.rotation = Quaternion.identity;
 
-        player.ChangeWeapon(this);
-        player.currentItem = this;
+       // player.ChangeWeapon(this);
+       // player.currentItem = this;
     }
 
     public void Drop()
@@ -53,7 +53,7 @@ public class Gun : MonoBehaviour, Iweapon, Ipickuppeable
         if (player != null)
         {
             this.transform.SetParent(null);
-            player.currentWeapon = null;
+          //  player.currentWeapon = null;
             player.currentItem = null;
 
             player = null; 

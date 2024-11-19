@@ -12,7 +12,6 @@ public class PlayerObserver : MonoBehaviour
     private void PlayerDead()
     {
         Debug.Log("Player dead");
-
     }
 
     private void DamageEffect()
