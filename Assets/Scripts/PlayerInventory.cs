@@ -67,6 +67,7 @@ public class PlayerInventory : MonoBehaviour
         if (items.Contains(item))
         {
             items.Remove(item);
+            displayItems();
             UpdateInventoryUi();
         }
     }

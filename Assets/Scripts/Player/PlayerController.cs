@@ -35,11 +35,14 @@ public class PlayerController : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Q))
         {
             currentItem = playerInventory.GetSelectedItem();
+
             if (currentItem != null)
             {
                 currentItem.Drop();
             }
         }
+
+
 
     }
 
