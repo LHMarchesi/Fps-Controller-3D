@@ -1,11 +1,14 @@
+using System;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class Item : MonoBehaviour, Ipickuppeable
 {
+    public static event Action OnDrop;
     public string itemName;
     public Sprite itemIcon;
-    private PlayerController playerController;
-    private Rigidbody rb;
+    protected PlayerController playerController;
+    protected Rigidbody rb;
 
     private void Awake()
     {
