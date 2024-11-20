@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Gate0
   - UI
+  - Gate1
   layers:
   - Default
   - TransparentFX

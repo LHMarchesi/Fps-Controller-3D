@@ -28,6 +28,10 @@ public class BubbleChatManager : MonoBehaviour
     [SerializeField]
     private GameObject textContainer = null;
 
+
+    private GameObject rewardItem;
+    private Transform itemSpawnPosition;
+
     public void LoadChat()
     {
         // Remove the default message
@@ -53,7 +57,10 @@ public class BubbleChatManager : MonoBehaviour
 
     public void GoodAnswerHandler()
     {
-        Debug.Log("GoodAnswer");
+        if (rewardItem != null && itemSpawnPosition != null)
+        {
+            Instantiate(rewardItem, itemSpawnPosition.position, Quaternion.identity);
+        }
     }
 
     // This is the main function called every time the story changes. It does a few things:
@@ -156,6 +163,12 @@ public class BubbleChatManager : MonoBehaviour
     {
         RemoveChildren();
         background.SetActive(false);
+    }
+
+    public void SetRewardItem(GameObject rewardItem, Transform itemSpawnPosition)
+    {
+            this.rewardItem = rewardItem;
+            this.itemSpawnPosition = itemSpawnPosition;
     }
 
 }

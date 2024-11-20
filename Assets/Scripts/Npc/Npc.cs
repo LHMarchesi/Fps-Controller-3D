@@ -3,6 +3,9 @@ using UnityEngine;
 public class Npc : MonoBehaviour, IInteractable
 {
     [SerializeField] private TextAsset inkJSONAsset;
+    [SerializeField] private bool HasReward;
+    [SerializeField] private GameObject itemPrefab;
+    [SerializeField] private Transform spawnPoint;
     BubbleChatManager story;
     PlayerController player;
     bool chatLoaded;
@@ -22,6 +25,11 @@ public class Npc : MonoBehaviour, IInteractable
             story.SetJsonFile(inkJSONAsset);
             story.LoadChat();
             chatLoaded = true;
+
+            if (HasReward)
+            {
+                story.SetRewardItem(itemPrefab, spawnPoint);
+            }
 
             Cursor.lockState = CursorLockMode.None; // Desbloquear el cursor para la UI
             Cursor.visible = true; // Mostrar el cursor

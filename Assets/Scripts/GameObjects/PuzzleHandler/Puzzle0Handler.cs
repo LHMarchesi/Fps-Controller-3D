@@ -5,8 +5,10 @@ using UnityEngine;
 public class Puzzle0Handler : MonoBehaviour
 {
     [SerializeField] private ItemPlatform[] itemPlatforms;
-    [SerializeField] private GameObject npc;
+    [SerializeField] private GameObject itemPrefab;
+    [SerializeField] private Transform spawnPoint;
     private bool allColliding;
+    private bool hasSpawned;
    
     // Update is called once per frame
     void Update()
@@ -26,12 +28,14 @@ public class Puzzle0Handler : MonoBehaviour
 
         if (allColliding)
         {
-            npc.SetActive(true);
+            if (itemPrefab != null && spawnPoint != null)
+            {
+                if (!hasSpawned)
+                {
+                    Instantiate(itemPrefab, spawnPoint.position, Quaternion.identity);
+                    hasSpawned = true;
+                }
+            }
         }
-        else
-        {
-            npc.SetActive(false);
-        }
-
     }
 }
