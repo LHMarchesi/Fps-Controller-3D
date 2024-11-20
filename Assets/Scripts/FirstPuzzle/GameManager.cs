@@ -11,28 +11,27 @@ public class GameManager : MonoBehaviour
     private int emptyLocation;
     private int size;
     private bool shuffling = false;
+    private bool puzzleCompleted = false;
+    private bool puzzleInitialized = false;
 
     void Start()
     {
         pieces = new List<Transform>();
         size = 3;
         CreateGamePieces(0.01f);
+        StartCoroutine(WaitShuffle(0.5f));
     }
     void Update()
     {
-        if (Input.GetMouseButtonDown(0))
+        if (puzzleCompleted) return;
+
+        if (Input.GetMouseButtonDown(0) && puzzleInitialized)
         {
-            if (!shuffling && CheckCompletion())
-            {
-                shuffling = true;
-                StartCoroutine(WaitShuffle(0.5f));
-            }
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
             RaycastHit hit;
             if (Physics.Raycast(ray, out hit))
             {
                 for (int i = 0; i < pieces.Count; i++)
-                {
                     if (pieces[i] == hit.transform)
                     {
                         if (SwapIfValid(i, -size, size)) { break; }
@@ -40,26 +39,33 @@ public class GameManager : MonoBehaviour
                         if (SwapIfValid(i, -1, 0)) { break; }
                         if (SwapIfValid(i, +1, size - 1)) { break; }
                     }
-                }
+            }
+            if (CheckCompletion())
+            {
+                puzzleCompleted = true;
+                Debug.Log("Puzzle completed! No more interactions available.");
             }
         }
     }
     private void CreateGamePieces(float gapThickness)
     {
         float width = 1 / (float)size;
-        for(int row = 0; row < size; row++)
-            for(int col = 0; col < size; col++)
+        for (int row = 0; row < size; row++)
+        {
+            for (int col = 0; col < size; col++)
             {
                 Transform piece = Instantiate(piecePrefab, gameTransform);
                 pieces.Add(piece);
                 piece.localPosition = new Vector3(-1 + (2 * width * col) + width, +1 - (2 * width * row) - width, 0);
                 piece.localScale = ((2 * width) - gapThickness) * Vector3.one;
                 piece.name = $"{(row * size) + col}";
+
                 if ((row == size - 1) && (col == size - 1))
                 {
                     emptyLocation = (size * size) - 1;
                     piece.gameObject.SetActive(false);
-                } else
+                }
+                else
                 {
                     float gap = gapThickness / 2;
                     Mesh mesh = piece.GetComponent<MeshFilter>().mesh;
@@ -71,15 +77,16 @@ public class GameManager : MonoBehaviour
                     mesh.uv = uv;
                 }
             }
+        }
     }
     private bool SwapIfValid(int i, int offset, int colCheck)
     {
         if (((i % size) != colCheck) && ((i + offset) == emptyLocation))
         {
-        (pieces[i], pieces[i + offset]) = (pieces[i + offset], pieces[i]);
-        (pieces[i].localPosition, pieces[i + offset].localPosition) = ((pieces[i + offset].localPosition, pieces[i].localPosition));
-        emptyLocation = i;
-        return true;
+            (pieces[i], pieces[i + offset]) = (pieces[i + offset], pieces[i]);
+            (pieces[i].localPosition, pieces[i + offset].localPosition) = (pieces[i + offset].localPosition, pieces[i].localPosition);
+            emptyLocation = i;
+            return true;
         }
         return false;
     }
@@ -90,11 +97,13 @@ public class GameManager : MonoBehaviour
                 return false;
         return true;
     }
+
     private IEnumerator WaitShuffle(float duration)
     {
         yield return new WaitForSeconds(duration);
         Shuffle();
-        shuffling = false;
+        puzzleInitialized = true;
+        Debug.Log("Puzzle sorted. You can now begin.");
     }
     private void Shuffle()
     {
@@ -103,16 +112,13 @@ public class GameManager : MonoBehaviour
         while (count < (size * size * size))
         {
             int random = Random.Range(0, size * size);
-            if (random == last) { continue; }
-            last = emptyLocation;
-            if (SwapIfValid(random, -size, size))
-                count++;
-            else if (SwapIfValid(random, +size, size))
-                count++;
-            else if (SwapIfValid(random, -1, 0))
-                count++;
-            else if (SwapIfValid(random, +1, size - 1))
-                count++;
+            if (random == last) continue;
+
+            last = random;
+            if (SwapIfValid(random, -size, size)) count++;
+            else if (SwapIfValid(random, +size, size)) count++;
+            else if (SwapIfValid(random, -1, 0)) count++;
+            else if (SwapIfValid(random, +1, size - 1)) count++;
         }
     }
 }
