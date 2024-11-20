@@ -15,6 +15,7 @@ public class PlayerController : MonoBehaviour
     private bool isGrounded;
     private float pickUpRange = 3.5f;
     private float currentSpeed;
+    private bool canMove = true;
 
     public float Speed
     {
@@ -55,21 +56,29 @@ public class PlayerController : MonoBehaviour
         currentSpeed = newSpeed;
     }
 
+    public void CanMove(bool value)
+    {
+        canMove = value;
+    }
     private void HandleMovement()
     {
-        float x;
-        float z;
+        if (canMove)
+        {
+            float x;
+            float z;
 
-        x = Input.GetAxis("Horizontal");
-        z = Input.GetAxis("Vertical");
+            x = Input.GetAxis("Horizontal");
+            z = Input.GetAxis("Vertical");
 
-        Vector3 move = transform.right * x + transform.forward * z;
-        controller.Move(move * currentSpeed * Time.deltaTime);
+            Vector3 move = transform.right * x + transform.forward * z;
+            controller.Move(move * currentSpeed * Time.deltaTime);
 
-        // applys gravity force
-        velocity.y += gravity * Time.deltaTime;
-        controller.Move(velocity * Time.deltaTime);
+            // applys gravity force
+            velocity.y += gravity * Time.deltaTime;
+            controller.Move(velocity * Time.deltaTime);
+        }
     }
+     
 
     private void TryPickUpItem()
     {

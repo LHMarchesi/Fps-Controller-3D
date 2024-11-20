@@ -3,6 +3,14 @@ using UnityEngine;
 
 public class PlayerObserver : MonoBehaviour
 {
+    [SerializeField] private GameObject LosePanel;
+    PlayerController playerController;
+
+    private void Awake()
+    {
+        playerController = GetComponent<PlayerController>();
+    }
+
     private void OnEnable()
     {
         PlayerHealth.OnGetDamage += DamageEffect;
@@ -11,7 +19,8 @@ public class PlayerObserver : MonoBehaviour
 
     private void PlayerDead()
     {
-        Debug.Log("Player dead");
+        LosePanel.SetActive(true);
+        playerController.CanMove(false);
     }
 
     private void DamageEffect()

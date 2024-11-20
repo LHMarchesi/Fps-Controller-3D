@@ -103,7 +103,6 @@ public class GameManager : MonoBehaviour
         yield return new WaitForSeconds(duration);
         Shuffle();
         puzzleInitialized = true;
-        Debug.Log("Puzzle sorted. You can now begin.");
     }
     private void Shuffle()
     {
