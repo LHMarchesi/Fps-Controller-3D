@@ -5,7 +5,7 @@ using UnityEngine;
 public class Puzzle0Handler : MonoBehaviour
 {
     [SerializeField] private ItemPlatform[] itemPlatforms;
-    [SerializeField] private GameObject door;
+    [SerializeField] private GameObject npc;
     private bool allColliding;
    
     // Update is called once per frame
@@ -26,8 +26,11 @@ public class Puzzle0Handler : MonoBehaviour
 
         if (allColliding)
         {
-            Animator doorAnimator = door.GetComponent<Animator>();
-            doorAnimator.SetBool("OpenDoor", true);
+            npc.SetActive(true);
+        }
+        else
+        {
+            npc.SetActive(false);
         }
 
     }

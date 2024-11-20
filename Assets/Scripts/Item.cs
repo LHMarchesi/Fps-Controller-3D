@@ -23,10 +23,10 @@ public class Item : MonoBehaviour, Ipickuppeable
 
     public void Drop()
     {
-        playerController.playerInventory.RemoveItem(this);
         transform.SetParent(null);
         rb.isKinematic = false;
         rb.detectCollisions = true;
+        playerController.playerInventory.RemoveItem(this);
     }
 
 

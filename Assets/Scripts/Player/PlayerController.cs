@@ -5,7 +5,7 @@ public class PlayerController : MonoBehaviour
     public Transform playerHand;
     public Ipickuppeable currentItem;
 
-    [SerializeField] private float speed = 12f;
+    [SerializeField] private float playerSpeed;
     [SerializeField] private float gravity = -10f;
 
     public PlayerInventory playerInventory;
@@ -14,13 +14,20 @@ public class PlayerController : MonoBehaviour
     private Vector3 velocity;
     private bool isGrounded;
     private float pickUpRange = 3.5f;
+    private float currentSpeed;
 
+    public float Speed
+    {
+        get => playerSpeed;
+        set => currentSpeed = value;
+    }
 
     private void Awake()
     {
         controller = GetComponent<CharacterController>();
         playerInventory = GetComponent<PlayerInventory>();
         playerCamera = Camera.main;
+        currentSpeed = playerSpeed;
     }
 
     void Update()
@@ -41,9 +48,11 @@ public class PlayerController : MonoBehaviour
                 currentItem.Drop();
             }
         }
+    }
 
-
-
+    public void ChangeSpeed(float newSpeed)
+    {
+        currentSpeed = newSpeed;
     }
 
     private void HandleMovement()
@@ -55,7 +64,7 @@ public class PlayerController : MonoBehaviour
         z = Input.GetAxis("Vertical");
 
         Vector3 move = transform.right * x + transform.forward * z;
-        controller.Move(move * speed * Time.deltaTime);
+        controller.Move(move * currentSpeed * Time.deltaTime);
 
         // applys gravity force
         velocity.y += gravity * Time.deltaTime;

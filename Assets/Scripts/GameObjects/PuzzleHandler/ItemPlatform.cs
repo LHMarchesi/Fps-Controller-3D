@@ -19,7 +19,7 @@ public class ItemPlatform : MonoBehaviour
     {
         if (collision.gameObject == prefab)
         {
-            material.SetColor("_Color", Color.blue);
+            material.SetColor("_Color", Color.green);
             isColliding = true;
         }
     }
