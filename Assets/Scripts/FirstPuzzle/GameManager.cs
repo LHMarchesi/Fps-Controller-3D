@@ -6,6 +6,7 @@ public class GameManager : MonoBehaviour
 {
     [SerializeField] private Transform gameTransform;
     [SerializeField] private Transform piecePrefab;
+    [SerializeField] private GameObject npc;
 
     private List<Transform> pieces;
     private int emptyLocation;
@@ -43,7 +44,7 @@ public class GameManager : MonoBehaviour
             if (CheckCompletion())
             {
                 puzzleCompleted = true;
-                Debug.Log("Puzzle completed! No more interactions available.");
+                npc.SetActive(true);
             }
         }
     }
